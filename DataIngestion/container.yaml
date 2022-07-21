@@ -1,0 +1,20 @@
+name: Ingest Data
+description: Ingest data
+inputs:
+- {name: ip, type: LocalPath, description: 'Path From where data will be Read.'}
+- {name: dataLocation, type: String,default:'C:\AION\DataSet\Classification\iris_class.csv',description: 'Path From where data will be Read.'}
+outputs:
+- {name: op, type: LocalPath, description: 'Path where data will be stored.'}
+implementation:
+    container:
+        image: dataingestion
+        command: [
+        python, 
+        code.py,
+        -i,
+        {inputPath: ip},
+        -l,
+        {inputValue: dataLocation},
+        -o,
+        {outputPath: op},
+        ]

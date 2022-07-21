@@ -1,0 +1,23 @@
+name: ModelMonitoring
+description: modelmonitoring
+inputs:
+- {name: inputDataLocation, type: String,default:'C:\AION\DataSet\Classification\iris_class.csv',description: 'Path From where data will be Read.'}
+- {name: trainingDataPath, type: LocalPath,description: 'Path From where data will be Read.'}
+- {name: prodDataPath, type: LocalPath,description: 'Path From where data will be Read.'}
+outputs:
+- {name: driftStatusLocation, type: LocalPath, description: 'Path where data will be stored.'}
+implementation:
+    container:
+        image: modelmonitoring
+        command: [
+        python, 
+        code.py,
+        -l,
+        {inputPath: inputDataLocation},
+        -t,
+        {inputValue: trainingDataPath},
+        -p,
+        {inputPath: prodDataPath},
+        -d,
+        {outputPath: driftStatusLocation},
+        ]
